@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="gnz.julaa.kanou.Authification">
+
+    <EditText
+        android:id="@+id/user_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Entrer l'email"
+        android:inputType="textEmailAddress"
+        android:textSize="@dimen/_12sdp" />
+
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Entrer le mot de passe"
+        android:inputType="textPassword"
+        android:textSize="@dimen/_12sdp" />
+
+
+    <TextView
+        android:id="@+id/new_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:gravity="center"
+        android:text="Nouveau compte?"
+        android:textSize="@dimen/_12sdp" />
+
+    <TextView
+        android:id="@+id/nbr_attempt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:gravity="center"
+        android:textSize="@dimen/_12sdp" />
+
+    <Button
+        android:id="@+id/user_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:background="@android:color/holo_green_dark"
+        android:gravity="center"
+        android:text="Login"
+
+        android:textSize="@dimen/_12sdp" />
+
+</LinearLayout>
