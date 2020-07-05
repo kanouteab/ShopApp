@@ -1,151 +1,234 @@
-package gnz.julaa.kanou;
+package gnz.julaa.kanou.ventes;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.os.Bundle;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.a11.sabou.R;
 
-
-import java.util.Calendar;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
+import uk.co.senab.photoview.PhotoViewAttacher;
+//import com.example.a11.gzndrader.R;
+
 
 /**
- * Created by a11 on 18/08/2017.
+ * Created by a11 on 17/08/2017.
  */
 
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+
+    //extends RecyclerView.Adapter<CardAdapter>
     private Context context;
-    static int T;
-   // private ImageLoader imageLoader,imageLoader2;
-    List<MatchInfos> matchInfos;
-    public final static String Param1="parm";
-    public final static String Param2="parm2";
-    public final static String PARAM3="id";
-    public final static String Scor="score";
-    public CardAdapter(List<MatchInfos> matchInfos, Context context){
-        super();
-        this.matchInfos =matchInfos;
+    private List<PriorityInfo> infos;
+    public CardAdapter(Context context,List<PriorityInfo> infos){
         this.context=context;
-
-
+        this.infos=infos;
     }
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.foot_info,parent,false);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.liste_prduit, parent, false);
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
-       MatchInfos infos = matchInfos.get(position);
-
-       /*
-        imageLoader=CustomVolleyRequest.getInstance(context).getImageLoader();
-       imageLoader.get(infos.getSigleA(),ImageLoader.getImageListener(holder.sigleA,R.mipmap.ic_launcher,android.R.drawable.ic_dialog_alert));
-
-        imageLoader2=CustomVolleyRequest.getInstance(context).getImageLoader();
-        imageLoader2.get(infos.getSigleB(),ImageLoader.getImageListener(holder.sigleB,R.mipmap.ic_launcher,android.R.drawable.ic_dialog_alert));
-
-        holder.sigleA.setImageUrl(infos.getSigleA(),imageLoader);
-        holder.sigleB.setImageUrl(infos.getSigleB(),imageLoader2);
-        */
-        Glide.with(context).load(infos.getSigleA()).into(holder.sigleA);
-        Glide.with(context).load(infos.getSigleB()).into(holder.sigleB);
-        holder.EquipeA.setText(infos.getEqpuipeA());
-        holder.EquipeB.setText(infos.getEquipeB());
-        holder.score.setText(infos.getInfos2()+" \n "+infos.getInfos1());
-        //holder.DH.setText(infos.getInfos1());
-        holder.statut.setText(infos.getInfo3());
-        //holder.id.setText(infos.getId());
+        PriorityInfo info=infos.get(position);
+        holder.detail.setText(info.getDetail());
+        holder.Tel.setText("Tel : "+info.getTel());
+        holder.Dat.setText(info.getDat());
+        holder.idpub.setText((info.getAuteur()));
+        Glide.with(context).load(info.getImage0()).into(holder.pro_Img);
     }
 
     @Override
     public int getItemCount() {
-        return matchInfos.size();
+        return infos.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView EquipeA;
-        TextView EquipeB;
-        TextView score;
-        TextView DH;
-        TextView id;
-       ImageView sigleA;
-        ImageView sigleB;
-        TextView statut;
-        ImageButton oeil;
-        public ViewHolder(final View itemView) {
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView Tel, detail, idpub,Dat;
+        public ImageView pro_Img;
+        public Button GetPlus;
+        public ViewHolder(View itemView) {
             super(itemView);
-            sigleA=(ImageView)itemView.findViewById(R.id.siglea);
-            sigleB=(ImageView)itemView.findViewById(R.id.sigleb);
-            EquipeA=(TextView)itemView.findViewById(R.id.eA);
-            EquipeB=(TextView)itemView.findViewById(R.id.eB);
-            score =(TextView)itemView.findViewById(R.id.info);
-            DH=(TextView)itemView.findViewById(R.id.time);
-            statut=(TextView)itemView.findViewById(R.id.statut);
-            oeil=(ImageButton)itemView.findViewById(R.id.oeil);
-            id=(TextView)itemView.findViewById(R.id.id);
-            oeil.setOnClickListener(new View.OnClickListener() {
+            Tel=(TextView)itemView.findViewById(R.id.tel);
+            detail =(TextView)itemView.findViewById(R.id.details);
+            idpub =(TextView)itemView.findViewById(R.id.id_pub);
+            Dat=(TextView)itemView.findViewById(R.id.dat);
+            GetPlus=(Button)itemView.findViewById(R.id.plus);
+            pro_Img=(ImageView)itemView.findViewById(R.id.imageViewProduit);
+           // IdPub=(TextView)itemView.findViewById(R.id.id_pub);
+            pro_Img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    loadParams(EquipeA.getText().toString(),EquipeB.getText().toString(),score.getText().toString(),id.getText().toString(),sigleA,sigleB);
+                    zoomPhoto(pro_Img);
+                }
+            });
+        }
+    }
+    private void zoomPhoto(ImageView Img){
+        PhotoViewAttacher photo=new PhotoViewAttacher(Img);
+        photo.update();
+    }
+    /*
+    private ImageLoader imageLoader,imageLoader0,imageLoader2,imageLoader3;
+    private Context context;
+
+
+    List<PriorityInfo> venteInfos;
+    public CardAdapter(List<PriorityInfo> venteInfos, Context context){
+        super();
+        this.venteInfos =venteInfos;
+        this.context=context;
+
+    }
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.liste_prduit,parent,false);
+        ViewHolder viewHolder = new ViewHolder(v);
+        return viewHolder;
+    }
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, int position) {
+
+        final PriorityInfo infos = venteInfos.get(position);
+
+        imageLoader0 = CustomVolleyRequest.getInstance(context).getImageLoader();
+        imageLoader0.get(infos.getImage(), ImageLoader.getImageListener(holder.imageView0, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+
+        holder.imageView0.setImageUrl(infos.getImage(), imageLoader0);
+
+        imageLoader2 = CustomVolleyRequest.getInstance(context).getImageLoader();
+        imageLoader2.get(infos.getImage2(), ImageLoader.getImageListener(holder.imageView2, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+        holder.imageView2.setImageUrl(infos.getImage2(), imageLoader2);
+
+        imageLoader3 = CustomVolleyRequest.getInstance(context).getImageLoader();
+        imageLoader3.get(infos.getImage3(), ImageLoader.getImageListener(holder.imageView3, R.mipmap.ic_launcher, android.R.drawable.ic_dialog_alert));
+        holder.imageView3.setImageUrl(infos.getImage3(), imageLoader3);
+
+        holder.textDat.setText(infos.getDetail());
+        holder.Tel.setText(infos.getEn_tel());
+        holder.Lib.setText(infos.getLib());
+        holder.Type.setText(infos.getType());
+        holder.detail.setText(infos.getEn_ville());
+        holder.Date.setText(infos.getDate());
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return venteInfos.size();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+        public NetworkImageView imageView,imageView0,imageView2,imageView3;
+        public TextView textDat;
+        public TextView Tel;
+        public TextView Lib;
+        public TextView Type;
+        public TextView Date,detail;
+        public Button plus,moins;
+        public Gallery gallery;
+        //public ImageView mac,ecran,congelo;
+
+        public ViewHolder(final View itemView) {
+            super(itemView);
+            //imageView = (NetworkImageView) itemView.findViewById(R.id.imageViewProduit);
+            imageView0=(NetworkImageView) itemView.findViewById(R.id.imageViewProduit0);
+            imageView2=(NetworkImageView) itemView.findViewById(R.id.imageViewProduit2);
+            imageView3=(NetworkImageView) itemView.findViewById(R.id.imageViewProduit3);
+            textDat = (TextView) itemView.findViewById(R.id.textPrix);
+            Tel= (TextView) itemView.findViewById(R.id.TextTel);
+            Lib= (TextView) itemView.findViewById(R.id.textLib);
+            Date=(TextView)itemView.findViewById(R.id.TextTime);
+            detail=(TextView)itemView.findViewById(R.id.Textville);
+            plus=(Button) itemView.findViewById(R.id.plus);
+            Type=(TextView)itemView.findViewById(R.id.Type);
+            gallery=(Gallery)itemView.findViewById(R.id.galleri);
+           /* int W=imageView.getWidth();
+          //  int H=imageView.getHeight();
+            moins=(Button) itemView.findViewById(R.id.moins);
+            plus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)imageView.getLayoutParams();
+                    int width=imageView.getWidth();
+                    int heith=imageView.getHeight();
+                    params.width=120+width;
+                    params.height=120+heith;
+                    imageView.setLayoutParams(params);
 
                 }
             });
-           // int val=parseInt(DH.getText().toString());
-           //gettime(val);
+            moins.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    LinearLayout.LayoutParams params=(LinearLayout.LayoutParams)imageView.getLayoutParams();
+                    //params.width=W;
+                    int width=imageView.getWidth();
+                    int heith=imageView.getHeight();
+                    if(width-120<width){
+                        params.width=width-120;
+                        params.height=heith-120;
+                    }
+                    imageView.setLayoutParams(params);
+                }
+            });
+            final Animation animation= AnimationUtils.loadAnimation(context,R.anim.bouance);
+
+            imageView.startAnimation(animation);
+           /*
+            imageView0.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    loadPhoto(imageView0);
+                    return false;
+                }
+            });
+            imageView2.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    loadPhoto(imageView2);
+                    return false;
+                }
+            });
+            imageView3.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    loadPhoto(imageView3);
+                    return false;
+                }
+            });
+
+*/
+
+
+    /*
         }
-        private void  loadParams(String param1, String param2, String Score, String ID, ImageView image, ImageView image2){
-            String prm1=param1;
-            String prm2=param2;
-            String score=Score;
-            String id=ID;
-            Intent intent=new Intent(context, Details.class);
-            intent.putExtra(Param1,prm1);
-            intent.putExtra(Param2,prm2);
-            intent.putExtra(Scor,score);
-            intent.putExtra(PARAM3,id);
-            ImageView image1=image;
-            ImageView Image2=image2;
-            image1.buildDrawingCache();
-            image2.buildDrawingCache();
+        private void  loadPhoto(NetworkImageView image){
+            NetworkImageView tempImage=image;
+            tempImage.buildDrawingCache();
             Bundle extra=new Bundle();
-            Bitmap img=image1.getDrawingCache();
-            Bitmap img2=Image2.getDrawingCache();
+            Bitmap img=tempImage.getDrawingCache();
             extra.putParcelable("IMG",img);
-            extra.putParcelable("IMG2",img2);
+            Intent intent=new Intent(context, Full_Screen.class);
             intent.putExtras(extra);
             context.startActivity(intent);
-
-        }
-        private void gettime(int time){
-            int t=time;
-            Calendar now=Calendar.getInstance();
-            int min=now.get(Calendar.MINUTE) + now.get(Calendar.HOUR_OF_DAY)*60;
-             T= min-t;
-
         }
 
-        @Override
-        public void onClick(View view) {
-            if (view==EquipeA || view==EquipeB){
-                loadParams(EquipeA.getText().toString(),EquipeB.getText().toString(),
-                        score.getText().toString(), id.getText().toString(), sigleA,sigleB);
-            }
-        }
+
+
     }
+
+*/
 
 }
