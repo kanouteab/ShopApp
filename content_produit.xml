@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bacground"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_18sdp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="gnz.julaa.kanou.ventes.Produit"
+        tools:showIn="@layout/activity_produit">
+
+        <EditText
+            android:id="@+id/tel"
+            android:layout_width="352dp"
+            android:layout_height="79dp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:ems="10"
+            android:hint="Contact"
+            android:inputType="phone"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textSize="@dimen/_15sdp" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Publier par......"
+            android:id="@+id/auteur"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:textSize="@dimen/_15sdp"
+            android:textAlignment="center"
+            android:textColor="@color/blanc"
+            />
+
+        <ImageView
+            android:id="@+id/Id_Imgbutt"
+            android:layout_width="348dp"
+            android:layout_height="271dp"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:src="@drawable/photo"
+
+            />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:id="@+id/recycle">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+        <EditText
+            android:id="@+id/details"
+            android:layout_width="match_parent"
+            android:layout_height="129dp"
+            android:layout_margin="@dimen/_16sdp"
+            android:ems="10"
+            android:textAlignment="center"
+            android:hint="Details"
+            android:textSize="@dimen/_15sdp"
+            android:textColor="@android:color/background_light" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Souhaitez-vous publier en :"
+                android:layout_margin="@dimen/_10sdp"
+                android:textAlignment="center"
+                android:textSize="@dimen/_15sdp"
+                />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/pays"
+                android:textAlignment="center"
+                android:textSize="@dimen/_15sdp"
+                android:entries="@array/pays">
+
+            </Spinner>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/val"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
+            android:background="@android:color/holo_blue_bright"
+            android:text="Publiez"
+            android:textColor="@android:color/background_light" />
+
+
+    </LinearLayout>
+</ScrollView>
+
